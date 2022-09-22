@@ -1,0 +1,23 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: redis
+spec:
+  replicas:
+  selector:
+    matchLabels:
+      app: redis
+      env: bliss-prod
+  template:
+    metadata:
+      name: bliss
+      labels:
+        app: redis
+        env: bliss-prod
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: bliss
+          image: quay.io/robinwu456/bliss_redis
+          imagePullPolicy: Always
